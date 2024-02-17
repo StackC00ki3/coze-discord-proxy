@@ -54,7 +54,7 @@ func main() {
 	}
 
 	go func() {
-		if err := server.ListenAndServeTLS("proxy-conf/server.crt", "proxy-conf/server.key"); err != nil && err != http.ErrServerClosed {
+		if err := srv.ListenAndServeTLS("proxy-conf/server.crt", "proxy-conf/server.key"); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			common.FatalLog("failed to start HTTP server: " + err.Error())
 		}
 	}()
